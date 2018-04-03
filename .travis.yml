@@ -1,0 +1,13 @@
+sudo: required
+
+language: node
+
+services:
+  - docker
+
+before_install:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker run -it --rm --mac-address "02:42:ac:11:00:02" -p "4840:4840" -p "9000:80" lukashechenberger/test-atvise-server
+
+script:
+  - npm run test
